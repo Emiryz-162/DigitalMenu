@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|c:\\users\\emiry\\desktop\\projeler\\digitalmenu\\digitalmenu\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|c:\\users\\emiry\\desktop\\projeler\\digitalmenu\\digitalmenu\\views\\admin\\editproduct.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\views\\admin\\editproduct.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|c:\\users\\emiry\\desktop\\projeler\\digitalmenu\\digitalmenu\\views\\admin\\createproduct.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\views\\admin\\createproduct.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "DigitalMenu\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "DigitalMenu\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOEEAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-21T13:16:26.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateProduct.cshtml",
+              "DocumentMoniker": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Admin\\CreateProduct.cshtml",
+              "RelativeDocumentMoniker": "DigitalMenu\\Views\\Admin\\CreateProduct.cshtml",
+              "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Admin\\CreateProduct.cshtml",
+              "RelativeToolTip": "DigitalMenu\\Views\\Admin\\CreateProduct.cshtml",
+              "ViewState": "AgIAABkAAAAAAAAAAAAuwJoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T12:59:47.533Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EditProduct.cshtml",
+              "DocumentMoniker": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Admin\\EditProduct.cshtml",
+              "RelativeDocumentMoniker": "DigitalMenu\\Views\\Admin\\EditProduct.cshtml",
+              "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Admin\\EditProduct.cshtml",
+              "RelativeToolTip": "DigitalMenu\\Views\\Admin\\EditProduct.cshtml",
+              "ViewState": "AgIAALAAAAAAAAAAAAAuwMEAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T12:59:57.612Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
