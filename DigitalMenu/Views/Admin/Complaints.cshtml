@@ -1,0 +1,126 @@
+﻿@model IEnumerable<DigitalMenu.Models.Complaint>
+@{
+    ViewData["Title"] = "Şikayet & Öneriler";
+}
+
+<nav class="admin-navbar">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="text-white mb-0 fs-5">
+                <i class="bi bi-chat-left-text-fill me-2"></i>Şikayet & Öneriler
+            </h3>
+            <div class="d-flex gap-2">
+                <a asp-action="Index" class="btn btn-light btn-sm">
+                    <i class="bi bi-house-fill me-1"></i>
+                    <span class="d-none d-sm-inline">Ana Sayfa</span>
+                </a>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-light btn-sm">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container px-2 px-md-3">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="admin-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="mb-1"><i class="bi bi-list-ul me-2"></i>Tüm Şikayetler</h4>
+                <p class="text-muted small mb-0">Toplam @Model.Count() şikayet/öneri</p>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="60">Durum</th>
+                            <th>Başlık</th>
+                            <th width="150">Gönderen</th>
+                            <th width="150">Tarih</th>
+                            <th width="120" class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var complaint in Model)
+                        {
+                            <tr class="@(complaint.IsRead ? "complaint-read" : "complaint-unread")">
+                                <td class="text-center">
+                                    @if (!complaint.IsRead)
+                                    {
+                                        <span class="badge bg-danger" title="Okunmadı">
+                                            <i class="bi bi-eye-slash-fill"></i>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success" title="Okundu">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-action="ComplaintDetail" asp-route-id="@complaint.Id" class="text-decoration-none text-dark fw-semibold">
+                                        @complaint.Subject
+                                    </a>
+                                    @if (!complaint.IsRead)
+                                    {
+                                        <span class="badge bg-warning text-dark ms-2">Yeni</span>
+                                    }
+                                </td>
+                                <td>
+                                    <small class="text-muted">@complaint.FullName</small>
+                                </td>
+                                <td>
+                                    <small class="text-muted">@complaint.CreatedDate.ToString("dd.MM.yyyy HH:mm")</small>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex gap-1 justify-content-center">
+                                        <a asp-action="ComplaintDetail" asp-route-id="@complaint.Id"
+                                           class="btn btn-sm btn-info" title="Görüntüle">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                        <form asp-action="DeleteComplaint" asp-route-id="@complaint.Id"
+                                              method="post" class="d-inline"
+                                              onsubmit="return confirm('Bu şikayeti silmek istediğinizden emin misiniz?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Sil">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center" role="alert">
+                <i class="bi bi-info-circle fs-1 d-block mb-3"></i>
+                <p class="mb-0">Henüz hiç şikayet veya öneri gelmemiş.</p>
+            </div>
+        }
+    </div>
+</div>

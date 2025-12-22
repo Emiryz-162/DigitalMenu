@@ -1,0 +1,170 @@
+﻿@model DigitalMenu.ViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "Yeni Ürün Ekle";
+    var categoryName = ViewBag.CategoryName as string;
+}
+
+<!-- Dark Admin Navbar -->
+<nav class="admin-navbar-dark">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="text-white mb-0 fs-5">
+                <i class="bi bi-plus-circle me-2"></i>
+                <span class="d-none d-md-inline">Yeni Ürün - @categoryName</span>
+                <span class="d-inline d-md-none">Yeni Ürün</span>
+            </h3>
+            <div>
+                <a asp-action="Products" asp-route-categoryId="@Model.CategoryId" class="btn btn-light-dark btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    <span class="d-none d-sm-inline">Geri Dön</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container-dark">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="admin-card-dark">
+                <h4 class="text-white mb-4 fs-5">
+                    <i class="bi bi-box-seam me-2"></i>Ürün Bilgileri
+                </h4>
+
+                <form asp-action="CreateProduct" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="CategoryId" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger-dark"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label-dark">
+                            <i class="bi bi-tag me-1"></i>Ürün Adı <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Name" class="form-control-dark" placeholder="Örn: Adana Kebap, Çikolatalı Pasta..." />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Description" class="form-label-dark">
+                            <i class="bi bi-chat-square-text me-1"></i>Açıklama <span class="text-danger">*</span>
+                        </label>
+                        <textarea asp-for="Description" class="form-control-dark" rows="3" placeholder="Ürün içeriği, malzemeler, özel notlar..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                        <div class="form-text-dark">En fazla 1000 karakter</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Price" class="form-label-dark">
+                                <i class="bi bi-currency-dollar me-1"></i>Fiyat <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text-dark">₺</span>
+                                <input asp-for="Price" class="form-control-dark" type="number" step="0.01" min="0" placeholder="0.00" />
+                            </div>
+                            <span asp-validation-for="Price" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Calories" class="form-label-dark">
+                                <i class="bi bi-fire me-1"></i>Kalori <small class="text-muted">(Opsiyonel)</small>
+                            </label>
+                            <div class="input-group">
+                                <input asp-for="Calories" class="form-control-dark" type="number" min="0" placeholder="150" />
+                                <span class="input-group-text-dark">kcal</span>
+                            </div>
+                            <span asp-validation-for="Calories" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ImageFile" class="form-label-dark">
+                            <i class="bi bi-image me-1"></i>Ürün Görseli <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="ImageFile" class="form-control-dark" type="file" accept="image/*" id="imageInput" />
+                        <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                        <div class="form-text-dark">
+                            <strong>Format:</strong> JPG, PNG, WEBP • <strong>Max:</strong> 5MB
+                        </div>
+
+                        <!-- Görsel Önizleme -->
+                        <div id="imagePreview" class="mt-3 text-center bg-preview-dark p-3 rounded" style="display: none;">
+                            <p class="text-success small mb-2">
+                                <i class="bi bi-check-circle me-1"></i>Önizleme
+                            </p>
+                            <img id="previewImg" src="" alt="Önizleme" class="img-fluid rounded" style="max-height: 250px;">
+                        </div>
+                    </div>
+
+                    <div class="alert-dark-info mb-4">
+                        <i class="bi bi-lightbulb me-2"></i>
+                        <strong>İpucu:</strong> Yüksek kaliteli görseller ve detaylı açıklamalar müşterilerin ilgisini çeker.
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary-dark btn-lg">
+                            <i class="bi bi-save me-2"></i>Ürünü Ekle
+                        </button>
+                        <a asp-action="Products" asp-route-categoryId="@Model.CategoryId" class="btn btn-secondary-dark">
+                            <i class="bi bi-x-circle me-2"></i>İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        // Görsel önizleme
+        if (imageInput) {
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Dosya boyutu kontrolü (5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Dosya boyutu 5MB\'dan küçük olmalıdır!');
+                        e.target.value = '';
+                        imagePreview.style.display = 'none';
+                        return;
+                    }
+
+                    // Dosya tipi kontrolü
+                    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                    if (!validTypes.includes(file.type)) {
+                        alert('Sadece JPG, PNG ve WEBP formatları desteklenir!');
+                        e.target.value = '';
+                        imagePreview.style.display = 'none';
+                        return;
+                    }
+
+                    // Önizleme göster
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                        imagePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+            });
+        }
+
+        // Form submit kontrolü
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!imageInput.files || imageInput.files.length === 0) {
+                alert('Lütfen bir ürün görseli seçin!');
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+}

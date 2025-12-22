@@ -1,0 +1,160 @@
+﻿@model DigitalMenu.Models.Complaint
+@{
+    ViewData["Title"] = "Şikayet Detay";
+}
+
+<nav class="admin-navbar">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="text-white mb-0 fs-5">
+                <i class="bi bi-file-text-fill me-2"></i>Şikayet Detay
+            </h3>
+            <div>
+                <a asp-action="Complaints" class="btn btn-light btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    <span class="d-none d-sm-inline">Geri Dön</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container px-2 px-md-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <div class="admin-card">
+                <!-- Başlık ve Durum -->
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h3 class="mb-2">@Model.Subject</h3>
+                        <p class="text-muted mb-0">
+                            <i class="bi bi-calendar-event me-2"></i>@Model.CreatedDate.ToString("dd MMMM yyyy, HH:mm")
+                        </p>
+                    </div>
+                    @if (Model.IsRead)
+                    {
+                        <span class="badge bg-success fs-6">
+                            <i class="bi bi-eye-fill me-1"></i>Okundu
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger fs-6">
+                            <i class="bi bi-eye-slash-fill me-1"></i>Okunmadı
+                        </span>
+                    }
+                </div>
+
+                <hr>
+
+                <!-- Gönderen Bilgileri -->
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label text-muted small mb-1">
+                            <i class="bi bi-person-fill me-1"></i>Gönderen
+                        </label>
+                        <p class="fw-semibold mb-0">@Model.FullName</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label text-muted small mb-1">
+                            <i class="bi bi-envelope-fill me-1"></i>Email
+                        </label>
+                        <p class="mb-0">
+                            <a href="mailto:@Model.Email" class="text-decoration-none">@Model.Email</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label text-muted small mb-1">
+                            <i class="bi bi-telephone-fill me-1"></i>Telefon
+                        </label>
+                        <p class="mb-0">
+                            @if (!string.IsNullOrEmpty(Model.Phone))
+                            {
+                                <a href="tel:@Model.Phone" class="text-decoration-none">@Model.Phone</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Belirtilmemiş</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Açıklama -->
+                <div class="mb-4">
+                    <label class="form-label text-muted small mb-2">
+                        <i class="bi bi-chat-square-text me-1"></i>Açıklama
+                    </label>
+                    <div class="p-3 bg-light rounded">
+                        <p class="mb-0" style="white-space: pre-wrap;">@Model.Description</p>
+                    </div>
+                </div>
+
+                <!-- Görseller -->
+                @{
+                    var hasImages = !string.IsNullOrEmpty(Model.Image1Path) ||
+                    !string.IsNullOrEmpty(Model.Image2Path) ||
+                    !string.IsNullOrEmpty(Model.Image3Path);
+                }
+
+                @if (hasImages)
+                {
+                    <hr>
+                    <div class="mb-4">
+                        <label class="form-label text-muted small mb-3">
+                            <i class="bi bi-images me-1"></i>Ekli Görseller
+                        </label>
+                        <div class="row g-3">
+                            @if (!string.IsNullOrEmpty(Model.Image1Path))
+                            {
+                                <div class="col-md-4">
+                                    <a href="@Model.Image1Path" target="_blank">
+                                        <img src="@Model.Image1Path" alt="Görsel 1" class="img-fluid rounded shadow-sm complaint-image">
+                                    </a>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Image2Path))
+                            {
+                                <div class="col-md-4">
+                                    <a href="@Model.Image2Path" target="_blank">
+                                        <img src="@Model.Image2Path" alt="Görsel 2" class="img-fluid rounded shadow-sm complaint-image">
+                                    </a>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Image3Path))
+                            {
+                                <div class="col-md-4">
+                                    <a href="@Model.Image3Path" target="_blank">
+                                        <img src="@Model.Image3Path" alt="Görsel 3" class="img-fluid rounded shadow-sm complaint-image">
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        <small class="text-muted d-block mt-2">
+                            <i class="bi bi-info-circle me-1"></i>Görseli büyük görmek için tıklayın
+                        </small>
+                    </div>
+                }
+
+                <hr>
+
+                <!-- İşlem Butonları -->
+                <div class="d-flex gap-2 justify-content-end">
+                    <a asp-action="Complaints" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Geri Dön
+                    </a>
+                    <form asp-action="DeleteComplaint" asp-route-id="@Model.Id"
+                          method="post" class="d-inline"
+                          onsubmit="return confirm('Bu şikayeti silmek istediğinizden emin misiniz?');">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash-fill me-2"></i>Sil
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

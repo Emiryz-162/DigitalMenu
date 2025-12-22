@@ -1,0 +1,175 @@
+﻿@model IEnumerable<DigitalMenu.Models.Category>
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+@Html.AntiForgeryToken()
+
+<!-- Dark Admin Navbar -->
+<nav class="admin-navbar-dark">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="text-white mb-0 fs-5">
+                <i class="bi bi-grid-3x3-gap me-2"></i>Kategoriler
+            </h3>
+            <div class="d-flex gap-2">
+                <a asp-action="Index" class="btn btn-light-dark btn-sm">
+                    <i class="bi bi-house-fill me-1"></i>
+                    <span class="d-none d-sm-inline">Ana Sayfa</span>
+                </a>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-light-dark btn-sm">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container-dark">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success-dark alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger-dark alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="text-white mb-0">
+            <i class="bi bi-list-ul me-2"></i>Kategori Listesi
+        </h4>
+        <a asp-action="CreateCategory" class="btn btn-primary-dark">
+            <i class="bi bi-plus-circle me-2"></i>
+            <span class="d-none d-sm-inline">Yeni Kategori</span>
+            <span class="d-inline d-sm-none">Ekle</span>
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <!-- Kategori Listesi -->
+        <div class="category-list-dark" id="categoryListBody">
+            @foreach (var category in Model)
+            {
+                <div class="category-item-dark" data-id="@category.Id">
+                    <!-- Grip (Sürükle) -->
+                    <div class="category-grip">
+                        <i class="bi bi-grip-vertical"></i>
+                    </div>
+
+                    <!-- Görsel -->
+                    <div class="category-image-wrapper">
+                        <img src="@category.ImagePath" alt="@category.Name" class="category-image-dark">
+                    </div>
+
+                    <!-- Kategori Adı -->
+                    <div class="category-name-dark">
+                        <span>@category.Name</span>
+                    </div>
+
+                    <!-- Aksiyonlar -->
+                    <div class="category-actions-dark">
+                        <a asp-action="Products" asp-route-categoryId="@category.Id"
+                           class="btn-action-dark btn-action-info" title="Ürünleri Görüntüle">
+                            <i class="bi bi-eye-fill"></i>
+                            <span class="d-none d-md-inline ms-1">Ürünler</span>
+                        </a>
+                        <a asp-action="EditCategory" asp-route-id="@category.Id"
+                           class="btn-action-dark btn-action-warning" title="Düzenle">
+                            <i class="bi bi-pencil-fill"></i>
+                            <span class="d-none d-md-inline ms-1">Düzenle</span>
+                        </a>
+                        <form asp-action="DeleteCategory" asp-route-id="@category.Id"
+                              method="post" class="d-inline"
+                              onsubmit="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz? Kategorideki tüm ürünler de silinecektir!');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-action-dark btn-action-danger" title="Sil">
+                                <i class="bi bi-trash-fill"></i>
+                                <span class="d-none d-md-inline ms-1">Sil</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state-dark">
+            <i class="bi bi-inbox"></i>
+            <p>Henüz kategori eklenmemiş.</p>
+            <a asp-action="CreateCategory" class="btn btn-primary-dark mt-3">
+                <i class="bi bi-plus-circle me-2"></i>İlk Kategoriyi Ekle
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        const categoryList = document.getElementById('categoryListBody');
+
+        if (categoryList) {
+            new Sortable(categoryList, {
+                animation: 200,
+                handle: '.category-grip',
+                ghostClass: 'category-ghost',
+                dragClass: 'category-drag',
+                forceFallback: true,
+                fallbackTolerance: 3,
+                touchStartThreshold: 5,
+                onEnd: function (evt) {
+                    const categoryIds = [];
+                    const items = categoryList.querySelectorAll('.category-item-dark');
+
+                    items.forEach(item => {
+                        categoryIds.push(parseInt(item.getAttribute('data-id')));
+                    });
+
+                    // AJAX ile sunucuya gönder
+                    fetch('@Url.Action("UpdateCategoryOrder", "Admin")', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        },
+                        body: JSON.stringify(categoryIds)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Başarı mesajı
+                            const alertDiv = document.createElement('div');
+                            alertDiv.className = 'alert alert-success-dark alert-dismissible fade show';
+                            alertDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>' + data.message +
+                                               '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>';
+
+                            const container = document.querySelector('.admin-container-dark');
+                            container.insertBefore(alertDiv, container.firstChild);
+
+                            setTimeout(() => {
+                                alertDiv.remove();
+                            }, 3000);
+                        } else {
+                            alert('Hata: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Sıralama güncellenirken bir hata oluştu.');
+                    });
+                }
+            });
+        }
+    </script>
+}

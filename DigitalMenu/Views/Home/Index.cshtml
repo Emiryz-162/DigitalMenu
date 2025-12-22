@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+    var settings = ViewBag.Settings as DigitalMenu.Models.Settings;
+    var categories = ViewBag.Categories as List<DigitalMenu.Models.Category>;
+    var logoPath = settings?.LogoPath ?? "/images/default-logo.jpg";
+}
+
+@if (TempData["ComplaintSuccess"] != null)
+{
+    <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 9999; width: 100%; max-width: 500px;">
+        <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["ComplaintSuccess"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+}
+
+@if (TempData["ComplaintError"] != null)
+{
+    <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 9999; width: 100%; max-width: 500px;">
+        <div class="alert alert-danger alert-dismissible fade show shadow-lg" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ComplaintError"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+}
+
+<!-- Dark Theme Home Page -->
+<div class="home-page-dark">
+    <!-- Sticky Header (Logo + Restoran Adı) -->
+    <header class="home-sticky-header" id="stickyHeader">
+        <div class="sticky-logo-container">
+            <img src="@logoPath" alt="Logo" class="sticky-logo" id="stickyLogo">
+        </div>
+        <h1 class="sticky-title" id="stickyTitle">@(settings?.RestaurantName ?? "Restoran Adı")</h1>
+    </header>
+
+    <!-- Kategoriler -->
+    <div class="home-content-dark">
+        <div class="container">
+            <!-- Hoş Geldiniz Mesajı -->
+            @if (!string.IsNullOrEmpty(settings?.WelcomeText))
+            {
+                <div class="home-welcome-message">
+                    <p>@settings.WelcomeText</p>
+                </div>
+            }
+
+            @if (categories != null && categories.Any())
+            {
+                <div class="home-category-grid">
+                    @foreach (var category in categories)
+                    {
+                        <a asp-controller="Home" asp-action="Category" asp-route-id="@category.Id" class="home-category-card">
+                            <div class="home-category-image">
+                                <img src="@category.ImagePath" alt="@category.Name">
+                            </div>
+                            <div class="home-category-name">
+                                <h3>@category.Name</h3>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p>Henüz kategori eklenmemiş.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Admin Giriş Linki (Gizli) -->
+    <div class="admin-secret-link">
+        <a asp-controller="Account" asp-action="Login">
+            <i class="bi bi-gear-fill"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Şikayet Butonu -->
+<partial name="_ComplaintButton" />
+
+<!-- Scroll Animation Script -->
+<script>
+    const header = document.getElementById('stickyHeader');
+    const logo = document.getElementById('stickyLogo');
+    const title = document.getElementById('stickyTitle');
+
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY;
+
+        if (scrollPosition > 50) {
+            // Scroll aşağıda - Küçült ve Koyulaştır
+            header.classList.add('scrolled');
+        } else {
+            // Scroll üstte - Büyüt ve Aydınlat
+            header.classList.remove('scrolled');
+        }
+    });
+</script>

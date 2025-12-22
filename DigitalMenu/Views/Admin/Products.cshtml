@@ -1,0 +1,174 @@
+﻿@model IEnumerable<DigitalMenu.Models.Product>
+@{
+    ViewData["Title"] = "Ürünler";
+    var category = ViewBag.Category as DigitalMenu.Models.Category;
+}
+
+@Html.AntiForgeryToken()
+
+<!-- Dark Admin Navbar -->
+<nav class="admin-navbar-dark">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="text-white mb-0 fs-5">
+                <i class="bi bi-box-seam me-2"></i>
+                <span class="d-none d-md-inline">@category.Name - Ürünler</span>
+                <span class="d-inline d-md-none">@category.Name</span>
+            </h3>
+            <div class="d-flex gap-2">
+                <a asp-action="Categories" class="btn btn-light-dark btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    <span class="d-none d-sm-inline">Kategoriler</span>
+                </a>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-light-dark btn-sm">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container-dark">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success-dark alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger-dark alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="text-white mb-0">
+            <i class="bi bi-list-ul me-2"></i>Ürün Listesi
+        </h4>
+        <a asp-action="CreateProduct" asp-route-categoryId="@category.Id" class="btn btn-primary-dark">
+            <i class="bi bi-plus-circle me-2"></i>
+            <span class="d-none d-sm-inline">Yeni Ürün</span>
+            <span class="d-inline d-sm-none">Ekle</span>
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <!-- Ürün Listesi -->
+        <div class="product-list-dark" id="productListBody">
+            @foreach (var product in Model)
+            {
+                <div class="product-item-dark" data-id="@product.Id">
+                    <!-- Grip (Sürükle) -->
+                    <div class="product-grip">
+                        <i class="bi bi-grip-vertical"></i>
+                    </div>
+
+                    <!-- Görsel -->
+                    <div class="product-image-wrapper">
+                        <img src="@product.ImagePath" alt="@product.Name" class="product-image-dark">
+                    </div>
+
+                    <!-- Ürün Bilgileri -->
+                    <div class="product-info-dark">
+                        <span class="product-name-dark">@product.Name</span>
+                        <span class="product-price-dark">@product.Price.ToString("C2")</span>
+                    </div>
+
+                    <!-- Aksiyonlar -->
+                    <div class="product-actions-dark">
+                        <a asp-action="EditProduct" asp-route-id="@product.Id"
+                           class="btn-action-dark btn-action-warning" title="Düzenle">
+                            <i class="bi bi-pencil-fill"></i>
+                            <span class="d-none d-md-inline ms-1">Düzenle</span>
+                        </a>
+                        <form asp-action="DeleteProduct" asp-route-id="@product.Id"
+                              method="post" class="d-inline"
+                              onsubmit="return confirm('Bu ürünü silmek istediğinizden emin misiniz?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-action-dark btn-action-danger" title="Sil">
+                                <i class="bi bi-trash-fill"></i>
+                                <span class="d-none d-md-inline ms-1">Sil</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state-dark">
+            <i class="bi bi-inbox"></i>
+            <p>Bu kategoride henüz ürün yok.</p>
+            <a asp-action="CreateProduct" asp-route-categoryId="@category.Id" class="btn btn-primary-dark mt-3">
+                <i class="bi bi-plus-circle me-2"></i>İlk Ürünü Ekle
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        const productList = document.getElementById('productListBody');
+
+        if (productList) {
+            new Sortable(productList, {
+                animation: 200,
+                handle: '.product-grip',
+                ghostClass: 'product-ghost',
+                dragClass: 'product-drag',
+                forceFallback: true,
+                fallbackTolerance: 3,
+                touchStartThreshold: 5,
+                onEnd: function (evt) {
+                    const productIds = [];
+                    const items = productList.querySelectorAll('.product-item-dark');
+
+                    items.forEach(item => {
+                        productIds.push(parseInt(item.getAttribute('data-id')));
+                    });
+
+                    // AJAX ile sunucuya gönder
+                    fetch('@Url.Action("UpdateProductOrder", "Admin")', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        },
+                        body: JSON.stringify(productIds)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Başarı mesajı
+                            const alertDiv = document.createElement('div');
+                            alertDiv.className = 'alert alert-success-dark alert-dismissible fade show';
+                            alertDiv.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>' + data.message +
+                                               '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>';
+
+                            const container = document.querySelector('.admin-container-dark');
+                            container.insertBefore(alertDiv, container.firstChild);
+
+                            setTimeout(() => {
+                                alertDiv.remove();
+                            }, 3000);
+                        } else {
+                            alert('Hata: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Sıralama güncellenirken bir hata oluştu.');
+                    });
+                }
+            });
+        }
+    </script>
+}

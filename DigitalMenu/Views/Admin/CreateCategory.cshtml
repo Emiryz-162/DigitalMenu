@@ -1,0 +1,135 @@
+﻿@model DigitalMenu.ViewModels.CategoryViewModel
+@{
+    ViewData["Title"] = "Yeni Kategori Ekle";
+}
+
+<!-- Dark Admin Navbar -->
+<nav class="admin-navbar-dark">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="text-white mb-0 fs-5">
+                <i class="bi bi-plus-circle me-2"></i>
+                <span class="d-none d-md-inline">Yeni Kategori Ekle</span>
+                <span class="d-inline d-md-none">Yeni Kategori</span>
+            </h3>
+            <div>
+                <a asp-action="Categories" class="btn btn-light-dark btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    <span class="d-none d-sm-inline">Geri Dön</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="admin-container-dark">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="admin-card-dark">
+                <h4 class="text-white mb-4 fs-5">
+                    <i class="bi bi-tag-fill me-2"></i>Kategori Bilgileri
+                </h4>
+
+                <form asp-action="CreateCategory" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger-dark"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label-dark">
+                            <i class="bi bi-tag me-1"></i>Kategori Adı <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Name" class="form-control-dark" placeholder="Örn: Ana Yemekler, Tatlılar..." />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ImageFile" class="form-label-dark">
+                            <i class="bi bi-image me-1"></i>Kategori Görseli <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="ImageFile" class="form-control-dark" type="file" accept="image/*" id="imageInput" />
+                        <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                        <div class="form-text-dark">
+                            <strong>Format:</strong> JPG, PNG, WEBP • <strong>Max:</strong> 5MB
+                        </div>
+
+                        <!-- Görsel Önizleme -->
+                        <div id="imagePreview" class="mt-3 text-center bg-preview-dark p-3 rounded" style="display: none;">
+                            <p class="text-success small mb-2">
+                                <i class="bi bi-check-circle me-1"></i>Önizleme
+                            </p>
+                            <img id="previewImg" src="" alt="Önizleme" class="img-fluid rounded" style="max-height: 250px;">
+                        </div>
+                    </div>
+
+                    <div class="alert-dark-info mb-4">
+                        <i class="bi bi-lightbulb me-2"></i>
+                        <strong>İpucu:</strong> Kategori sıralamasını liste sayfasında sürükle-bırak ile değiştirebilirsiniz.
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary-dark btn-lg">
+                            <i class="bi bi-save me-2"></i>Kategoriyi Ekle
+                        </button>
+                        <a asp-action="Categories" class="btn btn-secondary-dark">
+                            <i class="bi bi-x-circle me-2"></i>İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        if (imageInput) {
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+
+                if (file) {
+                    // Dosya boyutu kontrolü (5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Dosya boyutu 5MB\'dan küçük olmalıdır!');
+                        e.target.value = '';
+                        imagePreview.style.display = 'none';
+                        return;
+                    }
+
+                    // Dosya tipi kontrolü
+                    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                    if (!validTypes.includes(file.type)) {
+                        alert('Sadece JPG, PNG ve WEBP formatları desteklenir!');
+                        e.target.value = '';
+                        imagePreview.style.display = 'none';
+                        return;
+                    }
+
+                    // Önizleme göster
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                        imagePreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+            });
+        }
+
+        // Form submit kontrolü
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!imageInput.files || imageInput.files.length === 0) {
+                alert('Lütfen bir kategori görseli seçin!');
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+}

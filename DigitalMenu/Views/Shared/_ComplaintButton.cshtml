@@ -1,0 +1,120 @@
+﻿<!-- Dark Minimal Float Şikayet Butonu -->
+<button type="button" class="complaint-float-btn-dark" data-bs-toggle="modal" data-bs-target="#complaintModal" title="Şikayet & Öneri">
+    <i class="bi bi-chat-dots-fill"></i>
+</button>
+
+<!-- Dark Şikayet Modal -->
+<div class="modal fade" id="complaintModal" tabindex="-1" aria-labelledby="complaintModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content modal-dark">
+            <div class="modal-header modal-header-dark">
+                <h5 class="modal-title" id="complaintModalLabel">
+                    <i class="bi bi-chat-dots me-2"></i>Şikayet & Öneri
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-body-dark">
+                <form asp-controller="Complaint" asp-action="Submit" method="post" enctype="multipart/form-data" id="complaintForm">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="FullName" class="form-label text-white-80">
+                            <i class="bi bi-person me-1"></i>İsim Soyisim <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control form-control-dark" id="FullName" name="FullName" required placeholder="Adınız Soyadınız">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Email" class="form-label text-white-80">
+                                <i class="bi bi-envelope me-1"></i>Email <span class="text-danger">*</span>
+                            </label>
+                            <input type="email" class="form-control form-control-dark" id="Email" name="Email" required placeholder="ornek@email.com">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="Phone" class="form-label text-white-80">
+                                <i class="bi bi-telephone me-1"></i>Telefon <small class="text-muted">(Opsiyonel)</small>
+                            </label>
+                            <input type="tel" class="form-control form-control-dark" id="Phone" name="Phone" placeholder="05XX XXX XX XX">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Subject" class="form-label text-white-80">
+                            <i class="bi bi-tag me-1"></i>Başlık <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control form-control-dark" id="Subject" name="Subject" required placeholder="Şikayet/öneri konusu">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Description" class="form-label text-white-80">
+                            <i class="bi bi-chat-square-text me-1"></i>Açıklama <span class="text-danger">*</span>
+                        </label>
+                        <textarea class="form-control form-control-dark" id="Description" name="Description" rows="4" required placeholder="Lütfen detaylı açıklama yazın..."></textarea>
+                        <div class="form-text text-muted">En fazla 2000 karakter</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-white-80">
+                            <i class="bi bi-images me-1"></i>Görseller <small class="text-muted">(Opsiyonel - En fazla 3 adet)</small>
+                        </label>
+
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <input type="file" class="form-control form-control-dark" id="Image1" name="Image1" accept="image/*">
+                                <small class="text-muted d-block mt-1">Max 5MB</small>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="file" class="form-control form-control-dark" id="Image2" name="Image2" accept="image/*">
+                                <small class="text-muted d-block mt-1">Max 5MB</small>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="file" class="form-control form-control-dark" id="Image3" name="Image3" accept="image/*">
+                                <small class="text-muted d-block mt-1">Max 5MB</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-dark-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Şikayet ve önerileriniz en kısa sürede değerlendirilecektir.
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary-dark btn-lg">
+                            <i class="bi bi-send me-2"></i>Gönder
+                        </button>
+                        <button type="button" class="btn btn-secondary-dark" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-2"></i>İptal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Form validasyonu
+    document.getElementById('complaintForm').addEventListener('submit', function(e) {
+        const fileInputs = ['Image1', 'Image2', 'Image3'];
+        const maxSize = 5 * 1024 * 1024; // 5MB
+
+        for (let inputId of fileInputs) {
+            const input = document.getElementById(inputId);
+            if (input.files && input.files[0]) {
+                if (input.files[0].size > maxSize) {
+                    e.preventDefault();
+                    alert('Görsel boyutu 5MB\'dan küçük olmalıdır!');
+                    return false;
+                }
+            }
+        }
+    });
+
+    // Modal kapandığında formu temizle
+    document.getElementById('complaintModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('complaintForm').reset();
+    });
+</script>
