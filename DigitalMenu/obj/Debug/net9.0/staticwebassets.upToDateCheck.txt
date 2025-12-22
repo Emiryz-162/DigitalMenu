@@ -1,4 +1,3 @@
-wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\categories\0ab7a11d-bae4-438d-bb57-6285b83fcbc3.png
 wwwroot\images\categories\18705260-8eee-4eaf-842e-ac6effb5f964.png
@@ -24,6 +23,7 @@ wwwroot\images\products\e53b6d6a-180a-4983-8e53-d537905a64ed.png
 wwwroot\images\products\fb072fdb-a1c4-43c1-a75c-931690e89c0f.png
 wwwroot\images\products\fbdfdd83-6207-4679-8560-d4336b3de7a0.png
 wwwroot\images\settings\032da46a-f170-41b9-85d8-795f134c1c79.png
+wwwroot\images\settings\06fa989e-8e5c-4f2e-94ca-64a6dfd24fcc.png
 wwwroot\images\settings\0b2dd572-06a0-4709-bdd3-b62adf18726e.png
 wwwroot\images\settings\default-bg.jpg
 wwwroot\js\site.js
@@ -87,7 +87,7 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\css\site.css
+wwwroot\css\site.css
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\favicon.ico
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\js\site.js
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -149,3 +149,4 @@ C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\jquery\dist\
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\css\site.css
