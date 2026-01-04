@@ -1,3 +1,4 @@
+wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\categories\0ab7a11d-bae4-438d-bb57-6285b83fcbc3.png
 wwwroot\images\categories\18705260-8eee-4eaf-842e-ac6effb5f964.png
@@ -87,7 +88,6 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\css\site.css
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\favicon.ico
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\js\site.js
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
