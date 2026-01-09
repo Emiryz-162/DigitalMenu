@@ -1,8 +1,11 @@
-wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\categories\0ab7a11d-bae4-438d-bb57-6285b83fcbc3.png
 wwwroot\images\categories\18705260-8eee-4eaf-842e-ac6effb5f964.png
+wwwroot\images\categories\44369ec8-4a63-43c0-8cf9-f58bf4487f5b.png
 wwwroot\images\categories\57e58450-c205-45bd-8bf5-a6f45d0c311b.jpg
+wwwroot\images\categories\5991c9de-acb8-477e-8af7-a717d8ebd134.png
+wwwroot\images\categories\6af98512-0f1c-4903-a78d-19ea2cfd77fa.png
+wwwroot\images\categories\952f392a-a4a8-4375-b50e-a2a91d64beb9.png
 wwwroot\images\categories\a22ec8ac-42fb-48d4-a084-2f928c295e36.png
 wwwroot\images\categories\a4b4b29b-3778-4970-bd45-61beadcba5d6.png
 wwwroot\images\categories\bcfc10a9-56a9-426c-97e8-9816e2563964.png
@@ -16,6 +19,7 @@ wwwroot\images\complaints\c71b6cbb-d666-4734-9156-3a5c2e02906b.png
 wwwroot\images\products\0186622a-0efc-462b-a3cd-43907b28c47f.png
 wwwroot\images\products\01ed270d-75f8-4e15-949d-6dd265968941.png
 wwwroot\images\products\04b70345-f7f8-4140-af55-90707ad0bffe.png
+wwwroot\images\products\06f497a7-00db-4e35-b81f-6f36949f7b65.png
 wwwroot\images\products\5945c5ed-edba-42a7-9a46-3780f0cd8d43.png
 wwwroot\images\products\7fa0e015-678a-423f-a490-03697530fd79.png
 wwwroot\images\products\9e895816-f36e-4295-8fb5-00952eadc4b7.png
@@ -88,6 +92,7 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\css\site.css
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\favicon.ico
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\js\site.js
 C:\Users\emiry\Desktop\Projeler\DigitalMenu\DigitalMenu\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

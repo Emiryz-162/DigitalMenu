@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|c:\\users\\emiry\\desktop\\projeler\\digitalmenu\\digitalmenu\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|c:\\users\\emiry\\desktop\\projeler\\digitalmenu\\digitalmenu\\views\\shared\\_productdetailmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\views\\shared\\_productdetailmodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|c:\\users\\emiry\\desktop\\projeler\\digitalmenu\\digitalmenu\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3106B224-E18C-4026-90BF-4FBD74702FCE}|DigitalMenu\\DigitalMenu.csproj|solutionrelative:digitalmenu\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,7 +32,7 @@
               "RelativeDocumentMoniker": "DigitalMenu\\wwwroot\\css\\site.css",
               "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\wwwroot\\css\\site.css",
               "RelativeToolTip": "DigitalMenu\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAABACAAAAAAAAAAAowAQJAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKwJAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-12-22T09:51:19.016Z",
               "IsPinned": true,
@@ -40,15 +44,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "DigitalMenu\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "DigitalMenu\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-09T08:44:30.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "DigitalMenu\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "DigitalMenu\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAABkAAAAAAAAAAAAuwCsAAAA5AAAAAAAAAA==",
+              "Title": "_ProductDetailModal.cshtml",
+              "DocumentMoniker": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Shared\\_ProductDetailModal.cshtml",
+              "RelativeDocumentMoniker": "DigitalMenu\\Views\\Shared\\_ProductDetailModal.cshtml",
+              "ToolTip": "C:\\Users\\emiry\\Desktop\\Projeler\\DigitalMenu\\DigitalMenu\\Views\\Shared\\_ProductDetailModal.cshtml",
+              "RelativeToolTip": "DigitalMenu\\Views\\Shared\\_ProductDetailModal.cshtml",
+              "ViewState": "AgIAACgAAAAAAAAAAAAuwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-22T09:58:46.345Z",
+              "WhenOpened": "2026-01-09T08:34:06.76Z",
               "EditorCaption": ""
             }
           ]

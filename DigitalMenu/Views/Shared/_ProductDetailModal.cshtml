@@ -1,47 +1,41 @@
-﻿<!-- Ürün Detay Modal -->
+﻿<!-- Ürün Detay Modal - Dark Theme -->
 <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-0">
-                <div class="row g-0">
-                    <!-- Ürün Görseli -->
-                    <div class="col-md-6">
-                        <img id="modalProductImage" src="" alt="" class="img-fluid w-100" style="height: 400px; object-fit: cover;">
-                    </div>
+    <div class="modal-dialog modal-dialog-centered modal-product-dark">
+        <div class="modal-content modal-content-dark">
+            <!-- Close Button -->
+            <button type="button" class="btn-close-dark" data-bs-dismiss="modal" aria-label="Close">
+                <i class="bi bi-x-lg"></i>
+            </button>
 
-                    <!-- Ürün Bilgileri -->
-                    <div class="col-md-6 p-4">
-                        <h3 id="modalProductName" class="mb-3"></h3>
-
-                        <div class="mb-3">
-                            <span class="badge bg-success fs-4" id="modalProductPrice"></span>
-                        </div>
-
-                        <div id="modalProductCaloriesSection" class="mb-3" style="display: none;">
-                            <div class="d-flex align-items-center text-muted">
-                                <i class="bi bi-fire me-2 fs-5 text-danger"></i>
-                                <span id="modalProductCalories" class="fs-5"></span>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div class="mb-3">
-                            <h6 class="text-muted mb-2">
-                                <i class="bi bi-card-text me-2"></i>Açıklama
-                            </h6>
-                            <p id="modalProductDescription" class="mb-0" style="white-space: pre-wrap;"></p>
-                        </div>
-                    </div>
+            <!-- Ürün Görseli + Başlık Overlay -->
+            <div class="modal-product-image">
+                <img id="modalProductImage" src="" alt="" class="product-modal-img">
+                <div class="modal-image-overlay">
+                    <h3 id="modalProductName" class="modal-product-title"></h3>
                 </div>
             </div>
-            <div class="modal-footer border-0 justify-content-center">
-                <button type="button" class="btn btn-secondary btn-lg px-5" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle me-2"></i>Kapat
-                </button>
+
+            <!-- Ürün Bilgileri -->
+            <div class="modal-product-body">
+                <!-- Fiyat ve Kalori (Kutusuz) -->
+                <div class="modal-product-info">
+                    <div class="modal-price-simple">
+                        <i class="bi bi-currency-dollar"></i>
+                        <span id="modalProductPrice"></span>
+                    </div>
+                    <div id="modalProductCaloriesSection" class="modal-calories-simple" style="display: none;">
+                        <i class="bi bi-fire"></i>
+                        <span id="modalProductCalories"></span>
+                    </div>
+                </div>
+
+                <!-- Ayırıcı Çizgi -->
+                <div class="modal-divider"></div>
+
+                <!-- Açıklama (Kutusuz) -->
+                <div class="modal-description-simple">
+                    <p id="modalProductDescription"></p>
+                </div>
             </div>
         </div>
     </div>
@@ -63,16 +57,15 @@
         document.getElementById('modalProductPrice').textContent = price;
         document.getElementById('modalProductDescription').textContent = description;
 
-        // Kalori bilgisi varsa göster
+        // Kalori bilgisi varsa göster (0'dan büyükse)
         const caloriesSection = document.getElementById('modalProductCaloriesSection');
         const caloriesText = document.getElementById('modalProductCalories');
 
         if (calories && calories !== '' && parseInt(calories) > 0) {
             caloriesText.textContent = calories + ' kcal';
-            caloriesSection.style.display = 'block';
+            caloriesSection.style.display = 'flex';
         } else {
-            caloriesText.textContent = '- kcal';
-            caloriesSection.style.display = 'block';
+            caloriesSection.style.display = 'none';
         }
 
         // Modal'ı aç
