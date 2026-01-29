@@ -128,7 +128,7 @@ body {
 
 .home-content-dark {
     flex-grow: 1;
-    padding: 350px 20px 50px;
+    padding: 400px 20px 50px;
     transition: padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1764,7 +1764,7 @@ html {
     }
 
     .home-content-dark {
-        padding: 240px 15px 30px;
+        padding: 280px 15px 30px;
     }
 
     .home-welcome-message {
@@ -2090,7 +2090,7 @@ html {
     }
 
     .home-content-dark {
-        padding: 200px 10px 25px;
+        padding: 240px 10px 25px;
     }
 
     .home-welcome-message {
