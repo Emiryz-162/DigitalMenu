@@ -1,0 +1,45 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bin/
+obj/
+
+## Rider / VSCode
+.idea/
+.vscode/
+
+## Logs
+*.log
+
+## NuGet
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+!**/packages/build/
+
+## ASP.NET Core
+appsettings.Development.json
+
+## Publish
+publish/
+
+## OS
+Thumbs.db
+.DS_Store
+
+## Copilot / Cache / Temp
+**/.vs
+*.db
+*.dtbcache
+*.vsidx
